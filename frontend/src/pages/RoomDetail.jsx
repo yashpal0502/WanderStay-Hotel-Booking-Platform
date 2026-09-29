@@ -294,7 +294,7 @@ const RoomDetail = () => {
             <div class="flex flex-col items-center justify-between py-8">
               <img
                 class="h-24 w-24 rounded-full"
-                src={room.hotel.owner.image}
+                src={room.hotel.owner}
                 alt="Host"
               />
               <h2 class="text-lg text-gray-800 mt-3">
