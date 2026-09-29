@@ -38,7 +38,7 @@ export const checkAvailabilityAPI = wrapAsync(async (req, res) => {
 // POST /api/bookings/book
 
 export const createBooking = wrapAsync(async (req, res) => {
-  const { room, checkInDate, checkOutDate, guests } = req.body;
+  const { room, checkInDate, checkOutDate, guests, paymentMethod } = req.body;
 
   const user = req.user._id;
 
@@ -68,7 +68,7 @@ export const createBooking = wrapAsync(async (req, res) => {
   const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
   totalPrice *= nights;
 
-  const booking = await Booking.create({
+  await Booking.create({
     user,
     room,
     hotel: roomData.hotel._id,
@@ -76,6 +76,7 @@ export const createBooking = wrapAsync(async (req, res) => {
     checkInDate,
     checkOutDate,
     totalPrice,
+    paymentMethod: paymentMethod || "Pay At Hotel",
   });
   res.json({ success: true, message: "Booking created successfully" });
 });
@@ -109,7 +110,7 @@ export const getHotelBookings = wrapAsync(async (req, res) => {
 
   const totalRevenue = bookings.reduce(
     (acc, booking) => acc + booking.totalPrice,
-    0
+    0,
   );
 
   res.json({

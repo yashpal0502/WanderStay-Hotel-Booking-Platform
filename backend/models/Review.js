@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const reviewSchema = new mongoose.Schema(
   {
     user: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     room: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Room",
       required: true,
     },
@@ -24,7 +24,7 @@ const reviewSchema = new mongoose.Schema(
       trim: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Review = mongoose.model("Review", reviewSchema);

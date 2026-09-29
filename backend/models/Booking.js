@@ -8,12 +8,12 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
     room: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Room",
       required: true,
     },
     hotel: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Hotel",
       required: true,
     },
@@ -48,7 +48,7 @@ const bookingSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Booking = mongoose.model("Booking", bookingSchema);
