@@ -12,12 +12,6 @@ import bookingRouter from "./routes/bookingRoutes.js";
 import expressError from "./utils/expressError.js";
 import reviewRouter from "./routes/reviewRoutes.js";
 
-async function main() {
-  await connectDB();
-}
-
-main();
-
 connectCloudinary();
 
 const app = express();
@@ -37,6 +31,16 @@ app.use("/api/hotels", hotelRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/bookings", bookingRouter);
 app.use("/api/review", reviewRouter);
+
+const startServer = async () => {
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error("Database connection failed:", error);
+  }
+};
+
+startServer();
 
 app.use((req, res, next) => {
   next(new expressError(404, "Page Not Found!"));
